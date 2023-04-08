@@ -1,7 +1,5 @@
 package client;
 
-import menu.Menu;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -18,11 +16,7 @@ public class Main {
              DataInputStream input = new DataInputStream(socket.getInputStream());
              DataOutputStream output = new DataOutputStream(socket.getOutputStream())) {
 
-            System.out.println("Sent: Give me a record # 12");
-            output.writeUTF("Give me a record # 12");
-
-            String received = input.readUTF();
-            System.out.println("Received: " + received);
+            Sender.sender(input, output, args);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -3,11 +3,6 @@ package server;
 public class Main {
     public static void main(String[] args) {
         Server s = new Server();
-
-        for (int i = 0; i < 100; i++) {
-            s.serverDB.add("");
-        }
-
         s.serverRun(s);
     }
 }

@@ -1,6 +1,5 @@
 package client;
 
-
 import com.beust.jcommander.Parameter;
 
 public class JCommanderClient {
@@ -13,16 +12,16 @@ public class JCommanderClient {
     String type;
 
     @Parameter(
-            names = "-i",
+            names = "-k",
             description = "index of database",
             required = false
     )
-    int index;
+    String key;
 
     @Parameter(
-            names = "-m",
-            description = "message to save",
+            names = "-v",
+            description = "message to save to server",
             required = false
     )
-    String message;
+    String value;
 }

@@ -30,6 +30,7 @@ public class Server {
         }
     }
 
+    //Kills server on command, only for the purposes of the tests for the project.
     static void serverKill() {
         try {
             Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 23456);

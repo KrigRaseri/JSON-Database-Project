@@ -21,6 +21,8 @@ public interface ServerMenu {
             JsonObject receivedMessage = gson.fromJson(dis.readUTF(), JsonObject.class);
 
             switch (receivedMessage.get("type").getAsString()) {
+
+                //Sets JSON by making , adding, or updating it.
                 case "set" -> {
                     try {
                         writeLock.lock();
@@ -33,7 +35,7 @@ public interface ServerMenu {
                     }
                 }
 
-
+                //Gets JSON element.
                     case "get" -> {
                         try {
                             readLock.lock();
@@ -50,7 +52,7 @@ public interface ServerMenu {
                         }
                     }
 
-
+                    //Deletes JSON element.
                     case "delete" -> {
                         writeLock.lock();
                         try {
@@ -68,6 +70,7 @@ public interface ServerMenu {
                 }
 
 
+                //Exit command to shut down server for the Hyperskill project tests.
                     case "exit" -> {
                         String responseJSON = gson.toJson(Map.of("response", "OK"));
                         dos.writeUTF(responseJSON);
@@ -81,11 +84,13 @@ public interface ServerMenu {
         }
     }
 
-
-
-
+    /**
+     * Writes JSON to db.json
+     *
+     * @param database Current JSON database entry.
+     * */
     private static void writeJson(JsonObject database) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\Krig\\Documents\\GitHub\\JSON Database (Java)\\JSON Database (Java)\\task\\src\\server\\data\\db.json"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/java/server/data/db.json"))) {
             bw.write(database.toString());
 
         } catch(IOException e) {
@@ -93,7 +98,14 @@ public interface ServerMenu {
         }
     }
 
-
+    /**
+     * Sets the desired element of the JSON to a new value, or if it does not exist it will add it. Use's either a JSON
+     * array, or regular string, as a key from the CLI argument from -k.
+     *
+     * @param key is either a JSON Array, or basic key. Comes from CLI arguments.
+     * @param value CLI arg for what will replace, or be added, to the database.
+     * @param database Current JSON database entry.
+     * */
     private static void set(JsonElement key, JsonElement value, JsonObject database) {
         try {
             if (database == null) {
@@ -118,6 +130,13 @@ public interface ServerMenu {
         }
     }
 
+    /**
+     * Gets the desired element of the JSON database entry, chosen by a key JSON array, or regular string, determined
+     * from the CLI arguments.
+     *
+     * @param key is either a JSON Array, or basic key. Comes from CLI arguments.
+     * @param database Current JSON database entry.
+     * */
     private static JsonElement get(JsonElement key, JsonObject database) {
             if (key.isJsonPrimitive() && database.has(key.getAsString())) {
                 return database.get(key.getAsString());
@@ -128,6 +147,13 @@ public interface ServerMenu {
             throw new NullPointerException();
     }
 
+    /**
+     * Deletes an element from the JSON database entry, chosen by a key JSON array, or regular string, determined
+     * from the CLI arguments.
+     *
+     * @param key is either a JSON Array, or basic key. Comes from CLI arguments.
+     * @param database Current JSON database entry.
+     * */
     private static void delete(JsonElement key, JsonObject database) {
         try {
             if (key.isJsonPrimitive() && database.has(key.getAsString())) {
@@ -146,6 +172,10 @@ public interface ServerMenu {
         }
     }
 
+    /**
+     * Finds the chosen JSON element in the JSON database entry. If entry does not exist, create it if it does not
+     * exist if (createIfAbsent) true.
+     * */
     private static JsonElement findElement (JsonArray keys, boolean createIfAbsent, JsonObject dataBase){
         JsonElement tmp = dataBase;
         if (createIfAbsent) {
@@ -153,7 +183,6 @@ public interface ServerMenu {
                 if(!tmp.getAsJsonObject().has(key.getAsString())){
                     tmp.getAsJsonObject().add(key.getAsString(), new JsonObject());
                 }
-
                 tmp = tmp.getAsJsonObject().get(key.getAsString());
             }
 

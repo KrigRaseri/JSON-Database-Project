@@ -17,7 +17,7 @@ public interface ClientMenu {
         jc.parse(args);
         Gson gson = new Gson();
 
-        String inp = fileCommand(jcc);
+        String input = fileCommand(jcc);
 
         try {
             switch (jcc.type) {
@@ -57,11 +57,10 @@ public interface ClientMenu {
 
                 case "fileCommand" -> {
                     try {
-                        String g = new String(Files.readAllBytes(Paths.get(inp)));
-                        System.out.println(g);
-                        System.out.printf("Sent: " + g);
+                        String inputFile = new String(Files.readAllBytes(Paths.get(input)));
+                        System.out.printf("Sent: " + inputFile);
                         System.out.println();
-                        dos.writeUTF(g);
+                        dos.writeUTF(inputFile);
                         System.out.println("Received: " + dis.readUTF());
 
                     } catch (Exception e) {

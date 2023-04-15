@@ -2,7 +2,10 @@ package client;
 
 import com.beust.jcommander.JCommander;
 import com.google.gson.Gson;
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -77,7 +80,7 @@ public interface ClientMenu {
     private static String fileCommand(JCommanderClient jcc) {
         String inp = null;
         if (jcc.input != null) {
-            inp = "src/client/data/" + jcc.input;
+            inp = "src/main/java/client/data/" + jcc.input;
             jcc.type = "fileCommand";
         }
         return inp;

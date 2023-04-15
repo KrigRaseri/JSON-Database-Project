@@ -16,7 +16,7 @@ public interface ServerMenu {
             Lock writeLock = lock.writeLock();
 
             Gson gson = new Gson();
-            String content = new String(Files.readAllBytes(Paths.get("C:\\Users\\Krig\\Documents\\GitHub\\JSON Database (Java)\\JSON Database (Java)\\task\\src\\server\\data\\db.json")));
+            String content = new String(Files.readAllBytes(Paths.get("src/main/java/server/data/db.json")));
             JsonObject database = gson.fromJson(content, JsonObject.class);
             JsonObject receivedMessage = gson.fromJson(dis.readUTF(), JsonObject.class);
 

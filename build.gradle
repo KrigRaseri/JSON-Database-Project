@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'org.example'
+group 'org.krig'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -19,7 +19,6 @@ dependencies {
     // https://mvnrepository.com/artifact/com.beust/jcommander
     implementation group: 'com.beust', name: 'jcommander', version: '1.82'
 
-    
 
 }
 
